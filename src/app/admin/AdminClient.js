@@ -24,6 +24,7 @@ import {
   ChevronRight,
   ChevronLeft,
   Eye,
+  EyeOff,
   Heart,
   Mail
 } from "lucide-react";
@@ -48,6 +49,7 @@ export default function AdminClient() {
   const [authLoading, setAuthLoading] = useState(true);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState("");
   
   // Data States
@@ -477,14 +479,24 @@ export default function AdminClient() {
 
             <div className="flex flex-col gap-2">
               <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Secure Key / Password</label>
-              <input
-                type="password"
-                required
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
-                placeholder="••••••••"
-                className="bg-transparent border-b border-white/20 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white placeholder-white/10 transition-colors"
-              />
+              <div className="relative w-full">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="bg-transparent border-b border-white/20 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white placeholder-white/10 pr-10 transition-colors"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors cursor-pointer"
+                  title={showPassword ? "Hide Password" : "Show Password"}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             {authError && (
