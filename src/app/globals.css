@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg: #080808;
+  --panel: #111111;
+  --dark-2: #1c1c1c;
+  --text: #f2ede8;
+  --muted: #777;
+  --gray: #555;
+  --accent: #c8a97e;
+  --accent-dim: rgba(200, 169, 126, 0.15);
+  --divider: rgba(255, 255, 255, 0.06);
+  --background: var(--bg);
+  --foreground: var(--text);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-panel: var(--panel);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-divider: var(--divider);
+  --font-sans: var(--font-montserrat), var(--font-inter), "Helvetica Neue", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-weight: 300;
+}
+
+/* Font utilities matching the reference */
+.font-display {
+  font-family: 'Antonio', var(--font-display), sans-serif;
+}
+.font-condensed {
+  font-family: var(--font-condensed), sans-serif;
+}
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
