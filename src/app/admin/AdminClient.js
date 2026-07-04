@@ -226,8 +226,9 @@ export default function AdminClient() {
       // 8. Experience Clients
       onSnapshot(collection(db, "experience_clients"), (snapshot) => {
         if (snapshot.empty) {
-          CLIENTS.forEach(async (item) => {
-            await setDoc(doc(db, "experience_clients", item.id), item);
+          CLIENTS.forEach(async (name, idx) => {
+            const docId = `client-${idx + 1}`;
+            await setDoc(doc(db, "experience_clients", docId), { id: docId, name });
           });
         } else {
           setClients(snapshot.docs.map(d => d.data()));
@@ -237,8 +238,9 @@ export default function AdminClient() {
       // 9. Experience Exhibitions
       onSnapshot(collection(db, "experience_exhibitions"), (snapshot) => {
         if (snapshot.empty) {
-          EXHIBITIONS.forEach(async (item) => {
-            await setDoc(doc(db, "experience_exhibitions", item.id), item);
+          EXHIBITIONS.forEach(async (item, idx) => {
+            const docId = `exhib-${idx + 1}`;
+            await setDoc(doc(db, "experience_exhibitions", docId), { ...item, id: docId });
           });
         } else {
           setExhibitions(snapshot.docs.map(d => d.data()));
@@ -248,15 +250,14 @@ export default function AdminClient() {
       // 10. Experience Awards
       onSnapshot(collection(db, "experience_awards"), (snapshot) => {
         if (snapshot.empty) {
-          AWARDS.forEach(async (item) => {
-            await setDoc(doc(db, "experience_awards", item.id), item);
+          AWARDS.forEach(async (item, idx) => {
+            const docId = `award-${idx + 1}`;
+            await setDoc(doc(db, "experience_awards", docId), { ...item, id: docId });
           });
         } else {
           setAwards(snapshot.docs.map(d => d.data()));
         }
       }),
-
-      // 11. Contact Inquiries
       onSnapshot(collection(db, "contact_submissions_items"), (snapshot) => {
         setInquiries(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
       }),
@@ -472,7 +473,7 @@ export default function AdminClient() {
                 required
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
-                placeholder="admin@hanzalaphotography.com"
+                placeholder="admin@scurastudio.com"
                 className="bg-transparent border-b border-white/20 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white placeholder-white/10 transition-colors"
               />
             </div>
