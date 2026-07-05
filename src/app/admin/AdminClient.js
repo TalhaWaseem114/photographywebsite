@@ -65,6 +65,15 @@ export default function AdminClient() {
   const [awards, setAwards] = useState([]);
   const [inquiries, setInquiries] = useState([]);
   const [newsletterSubs, setNewsletterSubs] = useState([]);
+  const [siteSettings, setSiteSettings] = useState(null);
+  const [settingsForm, setSettingsForm] = useState(null);
+  const [settingsSubTab, setSettingsSubTab] = useState("hero"); // hero | about | contact | general
+
+  useEffect(() => {
+    if (siteSettings && !settingsForm) {
+      setSettingsForm(JSON.parse(JSON.stringify(siteSettings)));
+    }
+  }, [siteSettings, settingsForm]);
 
   // UI states for Inquiries
   const [inquirySubTab, setInquirySubTab] = useState("detailed"); // detailed | newsletter
@@ -267,7 +276,48 @@ export default function AdminClient() {
         setNewsletterSubs(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
       }),
 
-      // 13. Auth listener
+      // 13. Site Configuration Settings (Hero, About, Contact, SEO)
+      onSnapshot(doc(db, "site_config", "settings"), (snapshot) => {
+        if (!snapshot.exists()) {
+          const defaultSettings = {
+            hero: {
+              subtitle: "I don't take photos.",
+              title1: "I CAPTURE",
+              title2: "STORIES",
+              paragraph: "Photography for me is not looking, it's feeling. If you can't feel what you're looking at, then you're never going to get others to feel anything when they look at your pictures.",
+              image: "/images/hero.png",
+              signature: "Hanzala",
+              signatureSubtitle: "Hanzala Portfolio",
+              signatureRole: "Photographer"
+            },
+            about: {
+              heading: "Hanzala Photographer",
+              subheading: "Who I Am",
+              bio1: "Hanzala is a Bahawalpur-born photographer and visual artist whose work exists at the intersection of architectural geometry and minimal low-key portraiture. With a BFA in Graphic Design, his practice is rooted in structural balance, tonal density, and split-shadow control.",
+              bio2: "His editorial and documentary projects have been featured in national showcases, documenting both heritage structures and local visual characters. Operating out of his independent studio, he combines digital archiving with traditional print layout aesthetics to craft permanent visual narratives.",
+              image: "/images/aboutHero.png"
+            },
+            contact: {
+              email: "hello@scurastudio.com",
+              phone: "+92 300 1234567",
+              address: "Scura Studio, Bahawalpur, Pakistan",
+              instagram: "https://instagram.com/hanzala",
+              twitter: "https://twitter.com/hanzala",
+              whatsapp: "+923001234567"
+            },
+            general: {
+              siteTitle: "Scura Studio | Cinematic Editorial Photography",
+              metaDesc: "Premium bespoke editorial portfolio and journal showcasing architectural shadows, minimal low-key studio portraiture, and photo essays.",
+              showreelUrl: "/videos/showreel.mp4"
+            }
+          };
+          setDoc(doc(db, "site_config", "settings"), defaultSettings);
+        } else {
+          setSiteSettings(snapshot.data());
+        }
+      }),
+
+      // 14. Auth listener
       onAuthStateChanged(auth, (user) => {
         setCurrentUser(user);
         setAuthLoading(false);
@@ -412,6 +462,26 @@ export default function AdminClient() {
         }
       });
     }
+  };
+
+  const saveSiteSettings = async (updatedSettings) => {
+    try {
+      await setDoc(doc(db, "site_config", "settings"), updatedSettings);
+      triggerAlert("Web Settings saved successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to save settings: " + err.message);
+    }
+  };
+
+  const handleSettingsChange = (section, key, value) => {
+    setSettingsForm((prev) => ({
+      ...prev,
+      [section]: {
+        ...prev[section],
+        [key]: value
+      }
+    }));
   };
 
   const saveExperience = async (key, updatedList) => {
@@ -628,7 +698,8 @@ export default function AdminClient() {
             { id: "journals", label: "Journal Editor", icon: BookOpen },
             { id: "testimonials", label: "Reviews Moderation", icon: MessageSquare },
             { id: "inquiries", label: "Client Inquiries", icon: Mail },
-            { id: "experience", label: "CV & Credentials", icon: Award }
+            { id: "experience", label: "CV & Credentials", icon: Award },
+            { id: "settings", label: "Web Settings", icon: Settings }
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -3205,6 +3276,377 @@ export default function AdminClient() {
                     ))}
                   </div>
                 </div>
+
+              </div>
+            </div>
+          )}
+
+          {activeTab === "settings" && settingsForm && (
+            <div className="flex flex-col gap-6 animate-fade-in text-left">
+              <div className="flex items-center justify-between border-b border-white/5 pb-4">
+                <div>
+                  <h2 className="font-condensed text-[16px] tracking-[0.2em] uppercase text-[#c5a075]">
+                    Web Settings
+                  </h2>
+                  <p className="text-[10px] text-white/40 uppercase tracking-[0.1em] mt-1">
+                    Manage headings, bio texts, image banners, and SEO properties.
+                  </p>
+                </div>
+                <button
+                  onClick={() => saveSiteSettings(settingsForm)}
+                  className="bg-[#c5a075] hover:bg-[#b08c62] text-[#080808] text-[10px] uppercase font-mono tracking-widest px-6 py-2.5 rounded font-bold transition-all duration-300 cursor-pointer shadow-lg shadow-[#c5a075]/10 flex items-center gap-2"
+                >
+                  Save Settings
+                </button>
+              </div>
+
+              {/* Sub-Tabs Grid */}
+              <div className="flex border-b border-white/5 pb-2 mb-2 gap-4">
+                {[
+                  { id: "hero", label: "Hero Banner" },
+                  { id: "about", label: "About Page" },
+                  { id: "contact", label: "Contact Details" },
+                  { id: "general", label: "General & SEO" }
+                ].map((sTab) => (
+                  <button
+                    key={sTab.id}
+                    onClick={() => setSettingsSubTab(sTab.id)}
+                    className={`text-[9px] uppercase tracking-widest font-bold pb-2 transition-all cursor-pointer border-b ${
+                      settingsSubTab === sTab.id
+                        ? "border-[#c5a075] text-[#c5a075]"
+                        : "border-transparent text-white/45 hover:text-white"
+                    }`}
+                  >
+                    {sTab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Form Content */}
+              <div className="bg-[#0c0c0e] border border-white/5 rounded-md p-6 flex flex-col gap-6">
+                
+                {/* ─── Hero Section Panel ─── */}
+                {settingsSubTab === "hero" && (
+                  <div className="flex flex-col gap-5 max-w-2xl">
+                    <div className="flex flex-col gap-2">
+                      <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Hero Subtitle</label>
+                      <input
+                        type="text"
+                        value={settingsForm.hero?.subtitle || ""}
+                        onChange={(e) => handleSettingsChange("hero", "subtitle", e.target.value)}
+                        placeholder="e.g. I don't take photos."
+                        className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white placeholder-white/20 transition-colors"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Headline Line 1</label>
+                        <input
+                          type="text"
+                          value={settingsForm.hero?.title1 || ""}
+                          onChange={(e) => handleSettingsChange("hero", "title1", e.target.value)}
+                          placeholder="e.g. I CAPTURE"
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white placeholder-white/20 transition-colors"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Headline Line 2</label>
+                        <input
+                          type="text"
+                          value={settingsForm.hero?.title2 || ""}
+                          onChange={(e) => handleSettingsChange("hero", "title2", e.target.value)}
+                          placeholder="e.g. STORIES"
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white placeholder-white/20 transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Hero Paragraph</label>
+                      <textarea
+                        rows="3"
+                        value={settingsForm.hero?.paragraph || ""}
+                        onChange={(e) => handleSettingsChange("hero", "paragraph", e.target.value)}
+                        placeholder="Hero paragraph text..."
+                        className="bg-transparent border border-white/10 focus:border-[#c5a075] outline-none text-[12px] font-light p-3 rounded text-white placeholder-white/20 transition-colors resize-none"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Signature Name</label>
+                        <input
+                          type="text"
+                          value={settingsForm.hero?.signature || ""}
+                          onChange={(e) => handleSettingsChange("hero", "signature", e.target.value)}
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[12px] font-light py-2 w-full text-white transition-colors"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Signature Subtitle</label>
+                        <input
+                          type="text"
+                          value={settingsForm.hero?.signatureSubtitle || ""}
+                          onChange={(e) => handleSettingsChange("hero", "signatureSubtitle", e.target.value)}
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[12px] font-light py-2 w-full text-white transition-colors"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Signature Role</label>
+                        <input
+                          type="text"
+                          value={settingsForm.hero?.signatureRole || ""}
+                          onChange={(e) => handleSettingsChange("hero", "signatureRole", e.target.value)}
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[12px] font-light py-2 w-full text-white transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-3">
+                      <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Hero Portrait Image</label>
+                      <div className="flex items-center gap-4">
+                        {settingsForm.hero?.image && (
+                          <img
+                            src={settingsForm.hero.image}
+                            alt="Hero preview"
+                            className="w-16 h-16 object-cover border border-white/10 rounded"
+                          />
+                        )}
+                        <div>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            id="settings-hero-image"
+                            className="hidden"
+                            onChange={(e) => {
+                              const file = e.target.files[0];
+                              if (!file) return;
+                              triggerAlert("Uploading image to Cloudinary...");
+                              uploadToCloudinary(file)
+                                .then((url) => {
+                                  handleSettingsChange("hero", "image", url);
+                                  triggerAlert("Hero image updated!");
+                                })
+                                .catch((err) => {
+                                  console.error(err);
+                                  alert("Failed to upload: " + err.message);
+                                });
+                            }}
+                          />
+                          <label
+                            htmlFor="settings-hero-image"
+                            className="bg-[#c5a075]/10 border border-[#c5a075]/35 hover:bg-[#c5a075] hover:text-[#080808] text-[9px] px-3.5 py-1.5 rounded transition-all cursor-pointer uppercase font-bold tracking-wider"
+                          >
+                            Upload New Image
+                          </label>
+                          <span className="text-[9px] text-white/30 block mt-2">Recommended: transparent portrait alignment (low-key lighting)</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* ─── About Section Panel ─── */}
+                {settingsSubTab === "about" && (
+                  <div className="flex flex-col gap-5 max-w-2xl">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">About Subtitle</label>
+                        <input
+                          type="text"
+                          value={settingsForm.about?.subheading || ""}
+                          onChange={(e) => handleSettingsChange("about", "subheading", e.target.value)}
+                          placeholder="e.g. Who I Am"
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white placeholder-white/20 transition-colors"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">About Title</label>
+                        <input
+                          type="text"
+                          value={settingsForm.about?.heading || ""}
+                          onChange={(e) => handleSettingsChange("about", "heading", e.target.value)}
+                          placeholder="e.g. Hanzala Photographer"
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white placeholder-white/20 transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Biography Paragraph 1</label>
+                      <textarea
+                        rows="4"
+                        value={settingsForm.about?.bio1 || ""}
+                        onChange={(e) => handleSettingsChange("about", "bio1", e.target.value)}
+                        placeholder="Biography Paragraph 1..."
+                        className="bg-transparent border border-white/10 focus:border-[#c5a075] outline-none text-[12px] font-light p-3 rounded text-white placeholder-white/20 transition-colors resize-none"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Biography Paragraph 2</label>
+                      <textarea
+                        rows="4"
+                        value={settingsForm.about?.bio2 || ""}
+                        onChange={(e) => handleSettingsChange("about", "bio2", e.target.value)}
+                        placeholder="Biography Paragraph 2..."
+                        className="bg-transparent border border-white/10 focus:border-[#c5a075] outline-none text-[12px] font-light p-3 rounded text-white placeholder-white/20 transition-colors resize-none"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-3">
+                      <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">About Section Image</label>
+                      <div className="flex items-center gap-4">
+                        {settingsForm.about?.image && (
+                          <img
+                            src={settingsForm.about.image}
+                            alt="About preview"
+                            className="w-16 h-16 object-cover border border-white/10 rounded"
+                          />
+                        )}
+                        <div>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            id="settings-about-image"
+                            className="hidden"
+                            onChange={(e) => {
+                              const file = e.target.files[0];
+                              if (!file) return;
+                              triggerAlert("Uploading image to Cloudinary...");
+                              uploadToCloudinary(file)
+                                .then((url) => {
+                                  handleSettingsChange("about", "image", url);
+                                  triggerAlert("About image updated!");
+                                })
+                                .catch((err) => {
+                                  console.error(err);
+                                  alert("Failed to upload: " + err.message);
+                                });
+                            }}
+                          />
+                          <label
+                            htmlFor="settings-about-image"
+                            className="bg-[#c5a075]/10 border border-[#c5a075]/35 hover:bg-[#c5a075] hover:text-[#080808] text-[9px] px-3.5 py-1.5 rounded transition-all cursor-pointer uppercase font-bold tracking-wider"
+                          >
+                            Upload New Image
+                          </label>
+                          <span className="text-[9px] text-white/30 block mt-2">Recommended: horizontal showcase ratio</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* ─── Contact Details Panel ─── */}
+                {settingsSubTab === "contact" && (
+                  <div className="flex flex-col gap-5 max-w-2xl">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Contact Email</label>
+                        <input
+                          type="email"
+                          value={settingsForm.contact?.email || ""}
+                          onChange={(e) => handleSettingsChange("contact", "email", e.target.value)}
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white transition-colors"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Contact Phone</label>
+                        <input
+                          type="text"
+                          value={settingsForm.contact?.phone || ""}
+                          onChange={(e) => handleSettingsChange("contact", "phone", e.target.value)}
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Physical Studio Address</label>
+                        <input
+                          type="text"
+                          value={settingsForm.contact?.address || ""}
+                          onChange={(e) => handleSettingsChange("contact", "address", e.target.value)}
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white transition-colors"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">WhatsApp Booking Number</label>
+                        <input
+                          type="text"
+                          value={settingsForm.contact?.whatsapp || ""}
+                          onChange={(e) => handleSettingsChange("contact", "whatsapp", e.target.value)}
+                          placeholder="e.g. +923001234567"
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white transition-colors"
+                        />
+                        <span className="text-[8px] text-white/30">For the WhatsApp CTA rate calculator booking (international format without + or spaces, e.g. 923001234567)</span>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Instagram Link</label>
+                        <input
+                          type="text"
+                          value={settingsForm.contact?.instagram || ""}
+                          onChange={(e) => handleSettingsChange("contact", "instagram", e.target.value)}
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white transition-colors"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Twitter / X Link</label>
+                        <input
+                          type="text"
+                          value={settingsForm.contact?.twitter || ""}
+                          onChange={(e) => handleSettingsChange("contact", "twitter", e.target.value)}
+                          className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white transition-colors"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* ─── General & SEO Panel ─── */}
+                {settingsSubTab === "general" && (
+                  <div className="flex flex-col gap-5 max-w-2xl">
+                    <div className="flex flex-col gap-2">
+                      <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Site Title</label>
+                      <input
+                        type="text"
+                        value={settingsForm.general?.siteTitle || ""}
+                        onChange={(e) => handleSettingsChange("general", "siteTitle", e.target.value)}
+                        placeholder="SEO Page title shown in the browser tab..."
+                        className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white placeholder-white/20 transition-colors"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Meta Description</label>
+                      <textarea
+                        rows="3"
+                        value={settingsForm.general?.metaDesc || ""}
+                        onChange={(e) => handleSettingsChange("general", "metaDesc", e.target.value)}
+                        placeholder="SEO meta description details..."
+                        className="bg-transparent border border-white/10 focus:border-[#c5a075] outline-none text-[12px] font-light p-3 rounded text-white placeholder-white/20 transition-colors resize-none"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <label className="font-condensed text-[9px] tracking-[0.25em] text-white/40 uppercase">Showreel Embed Video Source</label>
+                      <input
+                        type="text"
+                        value={settingsForm.general?.showreelUrl || ""}
+                        onChange={(e) => handleSettingsChange("general", "showreelUrl", e.target.value)}
+                        placeholder="e.g. /videos/showreel.mp4 or YouTube Embed link"
+                        className="bg-transparent border-b border-white/10 focus:border-[#c5a075] outline-none text-[13px] font-light py-2 w-full text-white placeholder-white/20 transition-colors"
+                      />
+                      <span className="text-[8px] text-white/30">Supports local path (e.g. /videos/showreel.mp4) or any video player embed source link</span>
+                    </div>
+                  </div>
+                )}
 
               </div>
             </div>

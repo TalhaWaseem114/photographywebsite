@@ -2,9 +2,34 @@
 
 import { Play } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { db } from '@/lib/firebase';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(1); // Default to 02 like the reference image
+  const [heroData, setHeroData] = useState({
+    subtitle: "I don't take photos.",
+    title1: "I CAPTURE",
+    title2: "STORIES",
+    paragraph: "Photography for me is not looking, it's feeling. If you can't feel what you're looking at, then you're never going to get others to feel anything when they look at your pictures.",
+    image: "/images/hero.png",
+    signature: "Hanzala",
+    signatureSubtitle: "Hanzala Portfolio",
+    signatureRole: "Photographer"
+  });
+
+  // Sync with Firestore
+  useEffect(() => {
+    const unsubscribe = onSnapshot(doc(db, "site_config", "settings"), (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        if (data.hero) {
+          setHeroData(data.hero);
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Auto-rotate slides every 4 seconds
   useEffect(() => {
@@ -51,7 +76,7 @@ export default function Hero() {
             {/* Top-Left Accent Diagonal Line (Longer & More Subtle) */}
             <div className="absolute left-[-80px] top-[30px] w-36 h-[1px] bg-white/25 -rotate-45 transform origin-left"></div>
             <p className="text-[12px] tracking-[0.45em] uppercase text-white/50 font-light">
-              I don't take photos.
+              {heroData.subtitle}
             </p>
           </div>
 
@@ -64,21 +89,13 @@ export default function Hero() {
               fontWeight: 100
             }}
           >
-            I CAPTURE<br />
-            <span className="tracking-[0.16em]" style={{ fontWeight: 100 }}>STORIES</span>
+            {heroData.title1}<br />
+            <span className="tracking-[0.16em]" style={{ fontWeight: 100 }}>{heroData.title2}</span>
           </h1>
 
           {/* Paragraph */}
           <p className="text-white/40 text-[14px] leading-[2.1] mb-12 max-w-[260px] font-light tracking-wide">
-            Photography for me is
-            not looking, it's feeling.
-            If you can't feel what
-            you're looking at, then
-            you're never going to
-            get others to feel
-            anything when
-            they look at your
-            pictures.
+            {heroData.paragraph}
           </p>
 
           {/* Corner Bracket Portfolio Button */}
@@ -102,8 +119,8 @@ export default function Hero() {
         {/* ─── Right Side: Image Element Column ─── */}
         <div className="w-full md:w-[52%] lg:w-[48%] flex items-center justify-center z-10 mr-12 lg:mr-24">
           <img
-            src="/images/hero.png"
-            alt="Hanzala Photographer low key portrait"
+            src={heroData.image || "/images/hero.png"}
+            alt="Showcase portrait"
             className="w-full h-auto object-contain transition-all duration-700 ease-in-out"
           />
         </div>
@@ -113,11 +130,11 @@ export default function Hero() {
       {/* ─── Elegant Signature Layer (Positioned to the left of the vertical controls) ─── */}
       <div className="absolute bottom-36 right-28 z-20 text-right hidden lg:block">
         <p className="font-script text-[48px] text-[#c5a075] mb-1 leading-none tracking-normal">
-          Hanzala
+          {heroData.signature}
         </p>
         <div className="flex flex-col items-end border-t border-white/10 pt-1.5 mt-1">
-          <span className="text-[9px] tracking-[0.2em] uppercase font-medium text-white/70">Hanzala Portfolio</span>
-          <span className="text-[7px] tracking-[0.3em] uppercase text-white/35 mt-0.5">Photographer</span>
+          <span className="text-[9px] tracking-[0.2em] uppercase font-medium text-white/70">{heroData.signatureSubtitle}</span>
+          <span className="text-[7px] tracking-[0.3em] uppercase text-white/35 mt-0.5">{heroData.signatureRole}</span>
         </div>
       </div>
 

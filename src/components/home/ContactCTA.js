@@ -1,12 +1,25 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { db } from '@/lib/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, onSnapshot } from 'firebase/firestore';
 
 export default function ContactCTA() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [whatsappNumber, setWhatsappNumber] = useState("03493771741");
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(doc(db, "site_config", "settings"), (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        if (data.contact?.whatsapp) {
+          setWhatsappNumber(data.contact.whatsapp);
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,7 +79,7 @@ export default function ContactCTA() {
             </h2>
 
             <a 
-              href="https://wa.me/03493771741" 
+              href={`https://wa.me/${whatsappNumber.replace(/[\s\+\-]/g, '')}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 border border-[#c5a075]/40 hover:border-[#c5a075] bg-black/10 backdrop-blur-[1px] hover:bg-white/[0.02] transition-all duration-300 px-8 py-3.5 group select-none"

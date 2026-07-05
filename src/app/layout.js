@@ -33,10 +33,27 @@ const dancingScript = Dancing_Script({
   weight: ["600"],
 });
 
-export const metadata = {
-  title: "Hanzala — Photography",
-  description: "A clean, modern photography portfolio",
-};
+import { db } from "@/lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
+
+export async function generateMetadata() {
+  let title = "Scura Studio | Cinematic Editorial Photography";
+  let description = "Premium bespoke editorial portfolio and journal showcasing architectural shadows, minimal low-key studio portraiture, and photo essays.";
+
+  try {
+    const docRef = doc(db, "site_config", "settings");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      if (data.general?.siteTitle) title = data.general.siteTitle;
+      if (data.general?.metaDesc) description = data.general.metaDesc;
+    }
+  } catch (err) {
+    console.error("Error generating dynamic metadata:", err);
+  }
+
+  return { title, description };
+}
 
 export default function RootLayout({ children }) {
   return (

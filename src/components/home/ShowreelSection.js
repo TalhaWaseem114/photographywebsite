@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize } from 'lucide-react';
+import { db } from '@/lib/firebase';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 export default function ShowreelSection() {
   const videoRef = useRef(null);
@@ -9,6 +11,20 @@ export default function ShowreelSection() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [showreelUrl, setShowreelUrl] = useState("/videos/showreel.mp4");
+
+  // Sync video source from settings
+  useEffect(() => {
+    const unsubscribe = onSnapshot(doc(db, "site_config", "settings"), (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        if (data.general?.showreelUrl) {
+          setShowreelUrl(data.general.showreelUrl);
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, []);
   const [currentTime, setCurrentTime] = useState('00:00');
   const [duration, setDuration] = useState('00:00');
   const [showControls, setShowControls] = useState(true);
@@ -148,6 +164,7 @@ export default function ShowreelSection() {
                 {/* Video Element */}
                 <video
                   ref={videoRef}
+                  key={showreelUrl}
                   className="w-full h-full object-cover"
                   poster="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1200&auto=format&fit=crop"
                   muted={isMuted}
@@ -155,7 +172,7 @@ export default function ShowreelSection() {
                   playsInline
                   onClick={togglePlay}
                 >
-                  <source src="/videos/showreel.mp4" type="video/mp4" />
+                  <source src={showreelUrl} type="video/mp4" />
                 </video>
 
                 {/* ─── Play Button Overlay (when paused) ─── */}
