@@ -77,7 +77,7 @@ const Page = forwardRef((props, ref) => {
     <div className={`bg-[#f7f4eb] overflow-hidden relative shadow-[inset_0_0_20px_rgba(0,0,0,0.02)] ${props.className || ''}`} ref={ref} data-density="soft">
       {props.children}
       {/* Subtle page fold shading near spine */}
-      <div className={`absolute top-0 bottom-0 w-8 pointer-events-none mix-blend-multiply ${props.isLeft ? 'right-0 bg-gradient-to-l from-black/10 to-transparent' : 'left-0 bg-gradient-to-r from-black/10 to-transparent'}`}></div>
+      <div className={`absolute top-0 bottom-0 w-8 pointer-events-none mix-blend-multiply ${props.isLeft ? 'right-0 bg-gradient-to-l from-background/10 to-transparent' : 'left-0 bg-gradient-to-r from-background/10 to-transparent'}`}></div>
     </div>
   );
 });
@@ -168,7 +168,7 @@ export default function JournalSection() {
             className="w-full h-full object-cover grayscale contrast-[1.12] brightness-[0.9]"
             draggable="false"
           />
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-white/10 pointer-events-none mix-blend-overlay"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-background/10 via-transparent to-white/10 pointer-events-none mix-blend-overlay"></div>
         </div>
         <div className="pt-3 flex justify-between items-center select-none font-mono text-[8px] text-stone-500 tracking-wider">
           <span>{pageLeftData.caption}</span>
@@ -235,7 +235,7 @@ export default function JournalSection() {
   };
 
   return (
-    <section id="journal-section" className="relative py-20 md:py-24 bg-[#070707] border-t border-white/5 flex items-center min-h-[600px]">
+    <section id="journal-section" className="relative py-20 md:py-24 bg-background border-t border-divider flex items-center min-h-[600px]">
 
       {/* ─── Background Image Layer ─── */}
       <img
@@ -244,7 +244,7 @@ export default function JournalSection() {
         className="absolute inset-0 z-0 w-full h-full object-cover object-center opacity-100 pointer-events-none select-none"
       />
       {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-background/60 z-0 pointer-events-none"></div>
 
       {/* Subtle organic light bleed behind the book array */}
       <div className="absolute right-0 top-12 bottom-12 w-[60%] bg-[radial-gradient(circle_at_60%_50%,rgba(247,244,235,0.025)_0%,transparent_70%)] pointer-events-none"></div>
@@ -253,15 +253,15 @@ export default function JournalSection() {
 
         {/* ─── Heading/Intro Info (Stacked & Centered) ─── */}
         <div className="flex flex-col items-center w-full max-w-[800px] mb-12 transition-all duration-700">
-          <span className="font-condensed text-[12px] tracking-[0.4em] uppercase text-white/40 mb-3 block select-none">
+          <span className="font-condensed text-[12px] tracking-[0.4em] uppercase text-muted mb-3 block select-none">
             LATEST ENTRIES
           </span>
 
-          <h2 className="font-display text-[clamp(2.2rem,3.8vw,3.8rem)] leading-[1.05] tracking-[0.04em] uppercase text-white font-light mb-5">
+          <h2 className="font-display text-[clamp(2.2rem,3.8vw,3.8rem)] leading-[1.05] tracking-[0.04em] uppercase text-foreground font-light mb-5">
             OPEN MY JOURNEY
           </h2>
 
-          <p className="text-white/50 text-[13px] font-light leading-[2] tracking-wide mb-8 max-w-[500px]">
+          <p className="text-muted text-[13px] font-light leading-[2] tracking-wide mb-8 max-w-[500px]">
             An unfiltered archival log tracking the analog processes, physical journeys, and design logic captured behind the film lenses.
           </p>
 
@@ -316,11 +316,11 @@ export default function JournalSection() {
 
               {/* ─── Grounding Contact Shadows on the Table ─── */}
               {/* Deep core contact shadow right at the base line */}
-              <div className="absolute -bottom-2 left-10 right-10 h-4 bg-black blur-[6px] rounded-[50%] pointer-events-none mix-blend-multiply"></div>
+              <div className="absolute -bottom-2 left-10 right-10 h-4 bg-background blur-[6px] rounded-[50%] pointer-events-none mix-blend-multiply"></div>
               {/* Mid-spread ambient shadow */}
-              <div className="absolute -bottom-8 left-4 right-4 h-12 bg-black/90 blur-[18px] rounded-[50%] pointer-events-none mix-blend-multiply"></div>
+              <div className="absolute -bottom-8 left-4 right-4 h-12 bg-background/90 blur-[18px] rounded-[50%] pointer-events-none mix-blend-multiply"></div>
               {/* Large soft floor shadow projection */}
-              <div className="absolute -bottom-16 -left-6 -right-6 h-24 bg-black/50 blur-[36px] rounded-[50%] pointer-events-none mix-blend-multiply"></div>
+              <div className="absolute -bottom-16 -left-6 -right-6 h-24 bg-background/50 blur-[36px] rounded-[50%] pointer-events-none mix-blend-multiply"></div>
 
               <div className="w-full h-full relative overflow-hidden rounded-md flex flex-col justify-between p-12 select-none text-left shadow-[0_12px_35px_rgba(0,0,0,0.85)]">
                 <img
@@ -330,7 +330,7 @@ export default function JournalSection() {
                   draggable="false"
                 />
                 {/* Subtle spine shadow overlay to give it a physical book 3D feel */}
-                <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-black/60 via-black/20 to-transparent pointer-events-none z-10"></div>
+                <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background/60 via-background/20 to-transparent pointer-events-none z-10"></div>
                 
                 {/* Overlay text offset to the left to avoid the leather strap and lock buckle */}
                 <div className="relative z-20 w-[55%] flex flex-col justify-between h-full pointer-events-none">
@@ -385,7 +385,7 @@ export default function JournalSection() {
               {/* Outer Close Trigger Control Ring */}
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute -top-4 -right-4 z-[60] w-8 h-8 rounded-full bg-black/80 hover:bg-[#c5a075] border border-white/10 flex items-center justify-center text-white/80 hover:text-white transition-all backdrop-blur-sm cursor-pointer shadow-lg"
+                className="absolute -top-4 -right-4 z-[60] w-8 h-8 rounded-full bg-background/80 hover:bg-[#c5a075] border border-divider flex items-center justify-center text-foreground/80 hover:text-white transition-all backdrop-blur-sm cursor-pointer shadow-lg"
                 aria-label="Close Journal"
               >
                 <X className="w-3.5 h-3.5" />

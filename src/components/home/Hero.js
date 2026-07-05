@@ -45,7 +45,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero-section" className="relative h-[115vh] w-full overflow-hidden bg-black text-white selection:bg-white/20">
+    <section id="hero-section" className="relative h-[115vh] w-full overflow-hidden bg-background text-foreground selection:bg-foreground/20">
 
       {/* ─── Background Flower Image ─── */}
       <div
@@ -56,7 +56,7 @@ export default function Hero() {
       {/* ─── SCROLL TO EXPLORE (Bottom Left Vertical Text & Divider Line) ─── */}
       <div className="absolute left-10 bottom-8 z-20 hidden md:flex flex-col items-center gap-6">
         <span
-          className="text-[9px] tracking-[0.45em] uppercase text-white/40 font-light"
+          className="text-[9px] tracking-[0.45em] uppercase text-muted font-light"
           style={{ writingMode: 'vertical-lr', transform: 'rotate(180deg)' }}
         >
           Scroll to Explore
@@ -74,15 +74,15 @@ export default function Hero() {
           {/* Subtitle & Diagonal Line Section */}
           <div className="relative pl-12 mb-6">
             {/* Top-Left Accent Diagonal Line (Longer & More Subtle) */}
-            <div className="absolute left-[-80px] top-[30px] w-36 h-[1px] bg-white/25 -rotate-45 transform origin-left"></div>
-            <p className="text-[12px] tracking-[0.45em] uppercase text-white/50 font-light">
+            <div className="absolute left-[-80px] top-[30px] w-36 h-[1px] bg-foreground/25 -rotate-45 transform origin-left"></div>
+            <p className="text-[12px] tracking-[0.45em] uppercase text-muted font-light">
               {heroData.subtitle}
             </p>
           </div>
 
           {/* Headline */}
           <h1
-            className="font-display uppercase text-white mb-10 leading-[1.1] tracking-[0.18em]"
+            className="font-display uppercase text-foreground mb-10 leading-[1.1] tracking-[0.18em]"
             style={{
               fontSize: 'clamp(2.8rem, 7vw, 5.4rem)',
               fontFamily: "'Antonio', var(--font-display), sans-serif",
@@ -94,22 +94,22 @@ export default function Hero() {
           </h1>
 
           {/* Paragraph */}
-          <p className="text-white/40 text-[14px] leading-[2.1] mb-12 max-w-[260px] font-light tracking-wide">
+          <p className="text-muted text-[14px] leading-[2.1] mb-12 max-w-[260px] font-light tracking-wide">
             {heroData.paragraph}
           </p>
 
           {/* Corner Bracket Portfolio Button */}
           <div className="relative w-fit px-8 py-4.5 cursor-pointer group transition-all duration-500 ease-out hover:scale-[1.03] active:scale-[0.98] bg-transparent select-none">
             {/* Subtle glow / background fade on hover */}
-            <div className="absolute inset-0 bg-white/[0.01] group-hover:bg-[#c5a075]/6 backdrop-blur-[1px] transition-all duration-500 ease-out pointer-events-none"></div>
+            <div className="absolute inset-0 bg-foreground/[0.01] group-hover:bg-[#c5a075]/6 backdrop-blur-[1px] transition-all duration-500 ease-out pointer-events-none"></div>
 
             {/* Brackets - moving outward and turning gold on hover */}
-            <span className="absolute top-0 left-0 w-3.5 h-3.5 border-t border-l border-white/25 group-hover:border-[#c5a075] group-hover:-translate-x-1.5 group-hover:-translate-y-1.5 transition-all duration-500 ease-out"></span>
-            <span className="absolute top-0 right-0 w-3.5 h-3.5 border-t border-r border-white/25 group-hover:border-[#c5a075] group-hover:translate-x-1.5 group-hover:-translate-y-1.5 transition-all duration-500 ease-out"></span>
-            <span className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b border-l border-white/25 group-hover:border-[#c5a075] group-hover:-translate-x-1.5 group-hover:translate-y-1.5 transition-all duration-500 ease-out"></span>
-            <span className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b border-r border-white/25 group-hover:border-[#c5a075] group-hover:translate-x-1.5 group-hover:translate-y-1.5 transition-all duration-500 ease-out"></span>
+            <span className="absolute top-0 left-0 w-3.5 h-3.5 border-t border-l border-foreground/25 group-hover:border-[#c5a075] group-hover:-translate-x-1.5 group-hover:-translate-y-1.5 transition-all duration-500 ease-out"></span>
+            <span className="absolute top-0 right-0 w-3.5 h-3.5 border-t border-r border-foreground/25 group-hover:border-[#c5a075] group-hover:translate-x-1.5 group-hover:-translate-y-1.5 transition-all duration-500 ease-out"></span>
+            <span className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b border-l border-foreground/25 group-hover:border-[#c5a075] group-hover:-translate-x-1.5 group-hover:translate-y-1.5 transition-all duration-500 ease-out"></span>
+            <span className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b border-r border-foreground/25 group-hover:border-[#c5a075] group-hover:translate-x-1.5 group-hover:translate-y-1.5 transition-all duration-500 ease-out"></span>
 
-            <span className="relative z-10 text-[10px] font-semibold tracking-[0.35em] uppercase text-white/70 group-hover:text-white transition-all duration-500 ease-out group-hover:tracking-[0.42em] block whitespace-nowrap">
+            <span className="relative z-10 text-[10px] font-semibold tracking-[0.35em] uppercase text-foreground/70 group-hover:text-foreground transition-all duration-500 ease-out group-hover:tracking-[0.42em] block whitespace-nowrap">
               View Portfolio
             </span>
           </div>
@@ -132,9 +132,9 @@ export default function Hero() {
         <p className="font-script text-[48px] text-[#c5a075] mb-1 leading-none tracking-normal">
           {heroData.signature}
         </p>
-        <div className="flex flex-col items-end border-t border-white/10 pt-1.5 mt-1">
-          <span className="text-[9px] tracking-[0.2em] uppercase font-medium text-white/70">{heroData.signatureSubtitle}</span>
-          <span className="text-[7px] tracking-[0.3em] uppercase text-white/35 mt-0.5">{heroData.signatureRole}</span>
+        <div className="flex flex-col items-end border-t border-divider pt-1.5 mt-1">
+          <span className="text-[9px] tracking-[0.2em] uppercase font-medium text-foreground/70">{heroData.signatureSubtitle}</span>
+          <span className="text-[7px] tracking-[0.3em] uppercase text-muted mt-0.5">{heroData.signatureRole}</span>
         </div>
       </div>
 
@@ -145,7 +145,7 @@ export default function Hero() {
         <div className="flex flex-col items-center gap-3">
           <button
             onClick={scrollToShowreel}
-            className="relative w-12 h-12 rounded-full border-2 border-[#c5a075]/60 hover:border-[#c5a075] flex items-center justify-center bg-black/60 backdrop-blur-xs transition-all duration-300 group"
+            className="relative w-12 h-12 rounded-full border-2 border-[#c5a075]/60 hover:border-[#c5a075] flex items-center justify-center bg-background/60 backdrop-blur-xs transition-all duration-300 group"
           >
             {/* Ethereal Golden Wave Ripples */}
             <style>{`
@@ -168,9 +168,9 @@ export default function Hero() {
             <div className="absolute inset-0 rounded-full border border-[#c5a075]/30 bg-[#c5a075]/6 showreel-wave-2 pointer-events-none"></div>
             <div className="absolute inset-0 rounded-full border border-[#c5a075]/15 bg-[#c5a075]/3 showreel-wave-3 pointer-events-none"></div>
 
-            <Play className="w-3.5 h-3.5 text-white group-hover:text-[#c5a075] ml-0.5 group-hover:scale-110 transition-all duration-300" fill="currentColor" />
+            <Play className="w-3.5 h-3.5 text-foreground group-hover:text-[#c5a075] ml-0.5 group-hover:scale-110 transition-all duration-300" fill="currentColor" />
           </button>
-          <span className="text-[8px] tracking-[0.25em] uppercase text-white/40 font-light text-center whitespace-nowrap mt-1">
+          <span className="text-[8px] tracking-[0.25em] uppercase text-muted font-light text-center whitespace-nowrap mt-1">
             Watch Showreel
           </span>
         </div>

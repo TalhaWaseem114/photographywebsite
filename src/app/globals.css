@@ -51,3 +51,58 @@ body {
   background: var(--accent);
   color: var(--bg);
 }
+
+/* ─── Premium Editorial Light Theme Variables ─── */
+.theme-light {
+  --bg: #faf9f6;
+  --panel: #ffffff;
+  --dark-2: #f2f1eb;
+  --text: #161513;
+  --muted: #6e6b66;
+  --gray: #918e88;
+  --accent: #9a764a;
+  --accent-dim: rgba(154, 118, 74, 0.12);
+  --divider: rgba(0, 0, 0, 0.08);
+  --background: var(--bg);
+  --foreground: var(--text);
+}
+
+/* Universal Light Theme Style Overrides for Tailwind classes */
+.theme-light .bg-black {
+  background-color: var(--bg) !important;
+}
+.theme-light .text-white {
+  color: var(--text) !important;
+}
+.theme-light .text-white\/30,
+.theme-light .text-white\/35,
+.theme-light .text-white\/40,
+.theme-light .text-white\/50,
+.theme-light .text-white\/55,
+.theme-light .text-white\/60 {
+  color: var(--muted) !important;
+}
+.theme-light .border-white\/5,
+.theme-light .border-white\/10,
+.theme-light .border-white\/20,
+.theme-light .border-white\/25,
+.theme-light .border-white\/30,
+.theme-light .border-white\/40 {
+  border-color: var(--divider) !important;
+}
+.theme-light .text-white\/70,
+.theme-light .text-white\/80,
+.theme-light .text-white\/90,
+.theme-light .text-white\/95 {
+  color: var(--text) !important;
+}
+.theme-light .bg-white\/5,
+.theme-light .bg-white\/10 {
+  background-color: var(--dark-2) !important;
+}
+.theme-light .bg-black\/30,
+.theme-light .bg-black\/60,
+.theme-light .bg-black\/80 {
+  background-color: rgba(250, 249, 246, 0.6) !important;
+  backdrop-blur: 4px;
+}

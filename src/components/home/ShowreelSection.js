@@ -107,7 +107,7 @@ export default function ShowreelSection() {
   }, []);
 
   return (
-    <section id="showreel-section" className="relative py-20 md:py-24 bg-black border-t border-white/5 flex items-center min-h-[460px]">
+    <section id="showreel-section" className="relative py-20 md:py-24 bg-background border-t border-divider flex items-center min-h-[460px]">
 
 
       {/* Ambient background glow */}
@@ -119,15 +119,15 @@ export default function ShowreelSection() {
 
           {/* COLUMN 1: Editorial Text Block */}
           <div className="lg:col-span-1 flex flex-col items-start w-full pr-0 lg:pr-12">
-            <span className="font-condensed text-[12px] tracking-[0.4em] uppercase text-white/40 mb-3 block select-none">
+            <span className="font-condensed text-[12px] tracking-[0.4em] uppercase text-muted mb-3 block select-none">
               VISUAL JOURNAL
             </span>
 
-            <h2 className="font-display text-[36px] md:text-[48px] lg:text-[64px] font-light tracking-[0.1em] uppercase text-white/95 leading-[1.1] mb-6 max-w-[400px]">
+            <h2 className="font-display text-[36px] md:text-[48px] lg:text-[64px] font-light tracking-[0.1em] uppercase text-foreground/95 leading-[1.1] mb-6 max-w-[400px]">
               EXPERIENCE MY WORK
             </h2>
 
-            <p className="text-white/50 text-[13px] font-light leading-[2] tracking-wide mb-10 max-w-[320px]">
+            <p className="text-muted text-[13px] font-light leading-[2] tracking-wide mb-10 max-w-[320px]">
               Watch the story behind the shots. A short film that captures my cinematic vision, process, and passion for storytelling.
             </p>
 
@@ -150,7 +150,7 @@ export default function ShowreelSection() {
 
               {/* Camera Screen Video Overlay — pure % so it scales with camera at all sizes */}
               <div
-                className="absolute bg-black overflow-hidden group/screen"
+                className="absolute bg-background overflow-hidden group/screen"
                 style={{
                   left: '10.7%',
                   top: '27.7%',
@@ -190,7 +190,7 @@ export default function ShowreelSection() {
                       {/* Pulse ring */}
                       <div className="absolute w-16 h-16 rounded-full border border-[#c5a075]/30 animate-ping" style={{ animationDuration: '2s' }}></div>
                       {/* Button */}
-                      <div className="w-14 h-14 rounded-full flex items-center justify-center border border-white/20 bg-black/50 backdrop-blur-md shadow-[0_0_30px_rgba(197,160,117,0.15)] hover:bg-[#c5a075]/20 hover:border-[#c5a075]/50 hover:scale-110 transition-all duration-300">
+                      <div className="w-14 h-14 rounded-full flex items-center justify-center border border-divider bg-background/50 backdrop-blur-md shadow-[0_0_30px_rgba(197,160,117,0.15)] hover:bg-[#c5a075]/20 hover:border-[#c5a075]/50 hover:scale-110 transition-all duration-300">
                         <Play className="w-5 h-5 text-[#c5a075] ml-0.5" fill="currentColor" />
                       </div>
                     </div>
@@ -221,13 +221,13 @@ export default function ShowreelSection() {
                   }}
                 >
                   {/* Gradient fade background */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/40 to-transparent pointer-events-none"></div>
 
                   <div className="relative px-3 pb-2.5 pt-5">
                     {/* Progress Bar */}
                     <div
                       ref={progressRef}
-                      className="w-full h-[3px] bg-white/10 rounded-full cursor-pointer mb-2.5 group/progress relative"
+                      className="w-full h-[3px] bg-foreground/10 rounded-full cursor-pointer mb-2.5 group/progress relative"
                       onClick={handleProgressClick}
                     >
                       {/* Buffered track */}

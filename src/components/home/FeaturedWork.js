@@ -10,14 +10,14 @@ export default function FeaturedWork() {
   ];
 
   return (
-    <section id="featured-section" className="relative w-full bg-black py-24 border-t border-white/5">
+    <section id="featured-section" className="relative w-full bg-background py-24 border-t border-divider">
 
       {/* ─── Image Grid ─── */}
       {/* Left padding clears the vertical label. gap-[1px] with a subtle background creates the hairline separators */}
       <div className="pl-6 pr-6 md:pl-[100px] lg:pl-[140px] md:pr-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-white/10 w-full border border-white/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-foreground/10 w-full border border-divider">
           {works.map((work, index) => (
-            <div key={index} className="relative aspect-[3/4] overflow-hidden group cursor-pointer bg-black">
+            <div key={index} className="relative aspect-[3/4] overflow-hidden group cursor-pointer bg-background">
               {/* Image */}
               <img
                 src={work.img}
@@ -26,14 +26,14 @@ export default function FeaturedWork() {
               />
 
               {/* Dark Gradient Overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-700"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-700"></div>
 
               {/* Text Content */}
               <div className="absolute bottom-8 left-8 z-10 flex flex-col">
-                <span className="font-condensed text-[10px] tracking-[0.2em] text-white/50 mb-2">
+                <span className="font-condensed text-[10px] tracking-[0.2em] text-muted mb-2">
                   {work.num}
                 </span>
-                <h3 className="font-condensed text-[12px] tracking-[0.3em] uppercase text-white/90">
+                <h3 className="font-condensed text-[12px] tracking-[0.3em] uppercase text-foreground/90">
                   {work.title}
                 </h3>
               </div>
@@ -44,10 +44,10 @@ export default function FeaturedWork() {
 
       {/* ─── View Full Portfolio Button ─── */}
       <div className="flex justify-center mt-20">
-        <button className="group flex items-center gap-6 font-condensed text-[10px] tracking-[0.3em] uppercase text-white/60 hover:text-white transition-colors duration-300">
-          <span className="w-12 h-[1px] bg-white/20 group-hover:bg-[#c5a075] group-hover:w-16 transition-all duration-300"></span>
+        <button className="group flex items-center gap-6 font-condensed text-[10px] tracking-[0.3em] uppercase text-muted hover:text-foreground transition-colors duration-300">
+          <span className="w-12 h-[1px] bg-foreground/20 group-hover:bg-[#c5a075] group-hover:w-16 transition-all duration-300"></span>
           View Full Portfolio
-          <span className="w-12 h-[1px] bg-white/20 group-hover:bg-[#c5a075] group-hover:w-16 transition-all duration-300"></span>
+          <span className="w-12 h-[1px] bg-foreground/20 group-hover:bg-[#c5a075] group-hover:w-16 transition-all duration-300"></span>
         </button>
       </div>
 

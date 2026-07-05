@@ -15,6 +15,7 @@ import {
   RefreshCw, 
   Layers, 
   Settings, 
+  Palette,
   Command, 
   Smartphone, 
   Laptop, 
@@ -140,6 +141,11 @@ export default function AdminClient() {
   // Alert logs
   const [saveAlert, setSaveAlert] = useState(null);
 
+  const triggerAlert = (msg) => {
+    setSaveAlert(msg);
+    setTimeout(() => setSaveAlert(null), 3000);
+  };
+
   // Command Menu references
   const cmdRef = useRef(null);
 
@@ -233,14 +239,11 @@ export default function AdminClient() {
       }),
 
       // 8. Experience Clients
-      onSnapshot(collection(db, "experience_clients"), (snapshot) => {
-        if (snapshot.empty) {
-          CLIENTS.forEach(async (name, idx) => {
-            const docId = `client-${idx + 1}`;
-            await setDoc(doc(db, "experience_clients", docId), { id: docId, name });
-          });
+      onSnapshot(doc(db, "experience_metadata", "clients"), (snapshot) => {
+        if (!snapshot.exists()) {
+          setDoc(doc(db, "experience_metadata", "clients"), { list: CLIENTS });
         } else {
-          setClients(snapshot.docs.map(d => d.data()));
+          setClients(snapshot.data().list || []);
         }
       }),
 
@@ -467,7 +470,8 @@ export default function AdminClient() {
   const saveSiteSettings = async (updatedSettings) => {
     try {
       await setDoc(doc(db, "site_config", "settings"), updatedSettings);
-      triggerAlert("Web Settings saved successfully!");
+      setSaveAlert("Web Settings saved successfully!");
+      setTimeout(() => setSaveAlert(null), 3000);
     } catch (err) {
       console.error(err);
       alert("Failed to save settings: " + err.message);
@@ -482,6 +486,14 @@ export default function AdminClient() {
         [key]: value
       }
     }));
+  };
+
+  const saveClients = async (updatedList) => {
+    try {
+      await setDoc(doc(db, "experience_metadata", "clients"), { list: updatedList });
+    } catch (err) {
+      console.error("Error saving clients list:", err);
+    }
   };
 
   const saveExperience = async (key, updatedList) => {
@@ -699,7 +711,8 @@ export default function AdminClient() {
             { id: "testimonials", label: "Reviews Moderation", icon: MessageSquare },
             { id: "inquiries", label: "Client Inquiries", icon: Mail },
             { id: "experience", label: "CV & Credentials", icon: Award },
-            { id: "settings", label: "Web Settings", icon: Settings }
+            { id: "settings", label: "Web Settings", icon: Settings },
+            { id: "themes", label: "Theme Options", icon: Palette }
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -3168,14 +3181,16 @@ export default function AdminClient() {
                 </span>
 
                 <div className="flex flex-wrap gap-2">
-                  {clients.map((clientName, idx) => (
+                  {clients.map((clientItem, idx) => {
+                    const label = typeof clientItem === 'object' ? clientItem.name : clientItem;
+                    return (
                     <div key={idx} className="flex items-center gap-1.5 bg-[#0d0d10] border border-white/5 px-2.5 py-1 rounded text-xs text-white/80">
-                      <span>{clientName}</span>
+                      <span>{label}</span>
                       <button 
                         onClick={() => {
                           const copy = [...clients];
                           copy.splice(idx, 1);
-                          saveExperience("experience_clients", copy);
+                          saveClients(copy);
                           triggerAlert("Client removed!");
                         }}
                         className="text-white/40 hover:text-white text-[10px]"
@@ -3183,7 +3198,7 @@ export default function AdminClient() {
                         ×
                       </button>
                     </div>
-                  ))}
+                  )})}
                 </div>
 
                 {/* Add client */}
@@ -3193,7 +3208,7 @@ export default function AdminClient() {
                     const input = e.target.clientName.value.trim();
                     if (!input) return;
                     const copy = [...clients, input];
-                    saveExperience("experience_clients", copy);
+                    saveClients(copy);
                     e.target.clientName.value = "";
                     triggerAlert("Client added!");
                   }}
@@ -3648,6 +3663,87 @@ export default function AdminClient() {
                   </div>
                 )}
 
+              </div>
+            </div>
+          )}
+
+          {activeTab === "themes" && settingsForm && (
+            <div className="flex flex-col gap-6 animate-fade-in text-left">
+              <div className="flex items-center justify-between border-b border-white/5 pb-4">
+                <div>
+                  <h2 className="font-condensed text-[16px] tracking-[0.2em] uppercase text-[#c5a075]">
+                    Theme Configuration
+                  </h2>
+                  <p className="text-[10px] text-white/40 uppercase tracking-[0.1em] mt-1">
+                    Select your website's active aesthetic preset.
+                  </p>
+                </div>
+                <button
+                  onClick={() => saveSiteSettings(settingsForm)}
+                  className="bg-[#c5a075] hover:bg-[#b08c62] text-[#080808] text-[10px] uppercase font-mono tracking-widest px-6 py-2.5 rounded font-bold transition-all duration-300 cursor-pointer shadow-lg shadow-[#c5a075]/10 flex items-center gap-2"
+                >
+                  Save Theme
+                </button>
+              </div>
+
+              <div className="bg-[#0c0c0e] border border-white/5 rounded-md p-6 flex flex-col gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="font-condensed text-[10px] tracking-[0.25em] text-white/40 uppercase">Select Brand Aesthetic</label>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+                    {[
+                      { 
+                        id: "dark", 
+                        title: "Midnight Dark (Classic)", 
+                        desc: "The default premium low-key look. Deep blacks, warm gold accents, and high-contrast styling designed for fine art photography.",
+                        preview: "bg-[#080808] border-white/10"
+                      },
+                      { 
+                        id: "light", 
+                        title: "Editorial Light (Chic)", 
+                        desc: "A bright, clean, gallery-style aesthetic. High-contrast ink text, soft off-white backgrounds, and luxurious editorial framing.",
+                        preview: "bg-[#faf9f6] border-black/10"
+                      }
+                    ].map((t) => (
+                      <div 
+                        key={t.id}
+                        onClick={() => handleSettingsChange("general", "theme", t.id)}
+                        className={`border rounded-lg p-5 cursor-pointer transition-all duration-300 flex flex-col gap-3 group relative ${
+                          (settingsForm.general?.theme || "dark") === t.id
+                            ? "border-[#c5a075] bg-[#c5a075]/5"
+                            : "border-white/5 bg-black/20 hover:border-white/20"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <h3 className={`font-condensed text-xs uppercase tracking-wider font-semibold ${
+                            (settingsForm.general?.theme || "dark") === t.id ? "text-[#c5a075]" : "text-white"
+                          }`}>
+                            {t.title}
+                          </h3>
+                          <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
+                            (settingsForm.general?.theme || "dark") === t.id ? "border-[#c5a075]" : "border-white/20"
+                          }`}>
+                            {(settingsForm.general?.theme || "dark") === t.id && (
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#c5a075]"></div>
+                            )}
+                          </div>
+                        </div>
+
+                        <p className="text-[10px] text-white/45 leading-relaxed">
+                          {t.desc}
+                        </p>
+
+                        {/* Theme color previews */}
+                        <div className="flex gap-1.5 mt-2">
+                          <div className={`w-6 h-6 rounded-full border ${t.id === "dark" ? "bg-[#080808] border-white/15" : "bg-[#faf9f6] border-black/15"}`}></div>
+                          <div className="w-6 h-6 rounded-full bg-[#c5a075]"></div>
+                          <div className={`w-6 h-6 rounded-full ${t.id === "dark" ? "bg-[#111111]" : "bg-[#ffffff] border border-black/10"}`}></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                </div>
               </div>
             </div>
           )}

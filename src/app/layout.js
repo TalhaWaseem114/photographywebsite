@@ -55,11 +55,24 @@ export async function generateMetadata() {
   return { title, description };
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  let theme = "dark";
+  try {
+    const docRef = doc(db, "site_config", "settings");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      theme = docSnap.data().general?.theme || "dark";
+    }
+  } catch (err) {
+    console.error("Error fetching theme:", err);
+  }
+
+  const themeClass = theme === "light" ? "theme-light" : "theme-dark";
+
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${montserrat.variable} ${antonio.variable} ${barlowCondensed.variable} ${dancingScript.variable} h-full antialiased bg-[var(--bg)]`}
+      className={`${inter.variable} ${montserrat.variable} ${antonio.variable} ${barlowCondensed.variable} ${dancingScript.variable} ${themeClass} h-full antialiased bg-[var(--bg)]`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--text)]" suppressHydrationWarning>
