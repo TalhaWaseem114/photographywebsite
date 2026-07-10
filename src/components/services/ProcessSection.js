@@ -24,7 +24,7 @@ export default function ProcessSection() {
   return (
     <section 
       id="process-section" 
-      className="relative min-h-[460px] w-full bg-black border-t border-white/10"
+      className="relative min-h-[460px] w-full bg-black"
       style={{ contain: "layout style paint" }}
     >
       <div className="w-full h-full flex flex-col lg:flex-row items-start px-8 py-20 pl-8 md:pl-28 lg:pl-32 lg:pr-16 xl:pr-24 gap-12 lg:gap-16">

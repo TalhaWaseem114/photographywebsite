@@ -54,7 +54,7 @@ export default function TestimonialsGrid({
             onClick={() => onTabChange(cat)}
             className={`px-5 py-2.5 rounded-full border text-[10px] tracking-[0.2em] font-condensed uppercase transition-all duration-500 cursor-pointer
               ${activeTab === cat 
-                ? 'bg-[var(--accent)] text-[#080808] border-[var(--accent)] font-semibold shadow-[0_0_15px_rgba(200,169,126,0.25)] scale-102' 
+                ? 'bg-[var(--accent)] text-[#080808] border-[var(--accent)] font-semibold scale-102' 
                 : 'bg-transparent text-white/40 border-white/10 hover:text-white/80 hover:border-white/20 hover:bg-white/5'}`}
           >
             {cat === 'All' ? 'All Reviews' : `${cat} Work`}
@@ -73,11 +73,11 @@ export default function TestimonialsGrid({
             {reviews.map((rev) => (
               <div
                 key={rev.id}
-                className="review-card break-inside-avoid mb-6 flex flex-col bg-[#0c0c0e] border border-white/5 rounded-md p-6 sm:p-8 hover:border-[var(--accent)]/30 hover:bg-[#101013] transition-all duration-500 relative group opacity-0"
+                className="review-card break-inside-avoid mb-6 flex flex-col bg-[#0c0c0e] border border-white/5 rounded-xl p-6 sm:p-8 hover:border-[var(--accent)]/30 hover:bg-[#101013] transition-all duration-500 relative group opacity-0"
                 style={{ boxShadow: '0 8px 25px rgba(0,0,0,0.5)' }}
               >
                 {/* Gold inner border highlight */}
-                <div className="absolute inset-0 z-20 border border-[var(--accent)]/0 group-hover:border-[var(--accent)]/10 rounded-md pointer-events-none transition-all duration-500" />
+                <div className="absolute inset-0 z-20 border border-[var(--accent)]/0 group-hover:border-[var(--accent)]/10 rounded-xl pointer-events-none transition-all duration-500" />
                 
                 {/* Quotation watermark behind card */}
                 <span 

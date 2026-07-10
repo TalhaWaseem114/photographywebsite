@@ -40,7 +40,12 @@ export default function ShowreelSection() {
     const video = videoRef.current;
     if (!video) return;
     if (video.paused) {
-      video.play();
+      video.play().catch(err => {
+        // Safe catch for browser play interrupts
+        if (err.name !== "AbortError") {
+          console.error("Video play error:", err);
+        }
+      });
       setIsPlaying(true);
     } else {
       video.pause();
@@ -107,7 +112,10 @@ export default function ShowreelSection() {
   }, []);
 
   return (
-    <section id="showreel-section" className="relative py-20 md:py-24 bg-background border-t border-divider flex items-center min-h-[460px]">
+    <section id="showreel-section" className="relative py-20 md:py-24 bg-background flex items-center min-h-[460px]">
+
+      {/* ─── Gray Gradient Divider Line ─── */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-foreground/15 to-transparent opacity-50 z-30"></div>
 
 
       {/* Ambient background glow */}

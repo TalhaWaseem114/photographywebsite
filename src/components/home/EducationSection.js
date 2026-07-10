@@ -2,7 +2,10 @@
 
 export default function EducationSection() {
   return (
-    <section id="education-section" className="relative min-h-[600px] w-full grid grid-cols-1 md:grid-cols-2 bg-background border-t border-divider">
+    <section id="education-section" className="relative min-h-[600px] w-full grid grid-cols-1 md:grid-cols-2 bg-background">
+
+      {/* ─── Gray Gradient Divider Line ─── */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-foreground/15 to-transparent opacity-50 z-30"></div>
 
       {/* ─── LEFT SIDE — High-Contrast Architectural Photo ─── */}
       {/* Replaced the wireframe SVG with an atmospheric, dark academic structure matching the reference exactly */}

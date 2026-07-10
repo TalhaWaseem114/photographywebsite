@@ -235,7 +235,10 @@ export default function JournalSection() {
   };
 
   return (
-    <section id="journal-section" className="relative py-20 md:py-24 bg-background border-t border-divider flex items-center min-h-[600px]">
+    <section id="journal-section" className="relative py-20 md:py-24 bg-background flex items-center min-h-[600px]">
+
+      {/* ─── Gray Gradient Divider Line ─── */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-foreground/15 to-transparent opacity-50 z-30"></div>
 
       {/* ─── Background Image Layer ─── */}
       <img
@@ -322,11 +325,11 @@ export default function JournalSection() {
               {/* Large soft floor shadow projection */}
               <div className="absolute -bottom-16 -left-6 -right-6 h-24 bg-background/50 blur-[36px] rounded-[50%] pointer-events-none mix-blend-multiply"></div>
 
-              <div className="w-full h-full relative overflow-hidden rounded-md flex flex-col justify-between p-12 select-none text-left shadow-[0_12px_35px_rgba(0,0,0,0.85)]">
+              <div className="w-full h-full relative overflow-hidden rounded-xl flex flex-col justify-between p-12 select-none text-left shadow-[0_12px_35px_rgba(0,0,0,0.85)]">
                 <img
                   src="/images/journal book.png"
                   alt="HZ Journal Book Cover"
-                  className="absolute inset-0 w-full h-full object-cover rounded-md z-0"
+                  className="absolute inset-0 w-full h-full object-cover rounded-xl z-0"
                   draggable="false"
                 />
                 {/* Subtle spine shadow overlay to give it a physical book 3D feel */}

@@ -45,11 +45,11 @@ export default function PackagesSection() {
           {activePackages.map((pkg) => (
             <div
               key={pkg.id}
-              className="flex flex-col bg-[#0c0c0e] border border-white/5 hover:border-[var(--accent)]/30 rounded-md p-6 sm:p-8 hover:bg-[#101013] transition-all duration-500 relative group"
+              className="flex flex-col bg-[#0c0c0e] border border-white/5 hover:border-[var(--accent)]/30 rounded-xl p-6 sm:p-8 hover:bg-[#101013] transition-all duration-500 relative group"
               style={{ boxShadow: '0 8px 30px rgba(0,0,0,0.5)' }}
             >
               {/* Gold card accent */}
-              <div className="absolute inset-0 z-20 border border-[var(--accent)]/0 group-hover:border-[var(--accent)]/10 rounded-md pointer-events-none transition-all duration-500" />
+              <div className="absolute inset-0 z-20 border border-[var(--accent)]/0 group-hover:border-[var(--accent)]/10 rounded-xl pointer-events-none transition-all duration-500" />
 
               {/* Number and Title */}
               <div className="flex justify-between items-start mb-6">

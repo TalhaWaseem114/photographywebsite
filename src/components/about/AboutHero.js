@@ -11,20 +11,20 @@ export default function AboutHero() {
     >
       {/* Background Graphic & Atmosphere */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Ambient Dark Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
-
-        {/* Ambient glow */}
-        <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] rounded-full bg-[var(--accent)]/5 blur-[150px]" />
-        
-        {/* Parallax style background overlays */}
+        {/* Flower Image Overlay - fallback to heroFlower.png */}
         <div 
-          className="absolute inset-0 opacity-[0.22] mix-blend-screen bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 opacity-[0.55] mix-blend-screen bg-cover bg-center bg-no-repeat transition-all duration-700"
           style={{ 
-            backgroundImage: 'url("/images/aboutHeroBg.png"), url("/images/heroFlower.png")',
+            backgroundImage: 'url("/images/portfolioBg.png"), url("/images/heroFlower.png")',
             backgroundBlendMode: 'normal'
           }}
         />
+
+        {/* Ethereal Golden Light Orb */}
+        <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] rounded-full bg-[var(--accent)]/5 blur-[150px]" />
+        
+        {/* Left-side dark overlay for text legibility */}
+        <div className="absolute inset-y-0 left-0 w-full md:w-[65%] bg-gradient-to-r from-black/85 via-black/30 to-transparent" />
       </div>
 
       {/* Decorative Branding Brackets */}
@@ -75,8 +75,12 @@ export default function AboutHero() {
               </span>
             </div>
 
-            <p className="text-white/40 text-[14px] leading-[2.1] mb-12 max-w-[420px] font-light tracking-wide">
-              I capture the atmospheric density of stories through minimal composition, chemical tonal ranges, and deliberate light management. A visual archivist recording silent moments.
+            <p className="text-white/60 text-[14px] leading-[2.1] mb-6 max-w-[420px] font-light tracking-wide">
+              I am a visual artist and photographer. For me, <strong className="font-semibold text-white">every frame is a search for something real</strong>. I focus on the delicate balance of light, shadow, and genuine human connection.
+            </p>
+
+            <p className="text-white/60 text-[14px] leading-[2.1] mb-12 max-w-[420px] font-light tracking-wide">
+              With a deep love for editorial and documentary styles, I blend minimal aesthetics with intention to <strong className="font-semibold text-white">craft visual stories that last</strong>.
             </p>
 
             {/* Micro Details List */}
@@ -99,11 +103,11 @@ export default function AboutHero() {
           {/* Right Block: Moody Grayscale Portrait */}
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
             <div 
-              className="relative w-full max-w-[420px] aspect-[3/4] overflow-hidden rounded-md border border-white/10"
+              className="relative w-full max-w-[420px] aspect-[3/4] overflow-hidden rounded-xl border border-white/10"
               style={{ boxShadow: '0 20px 50px rgba(0,0,0,0.5)' }}
             >
               {/* Gold overlay card glow */}
-              <div className="absolute inset-0 z-20 border border-[var(--accent)]/10 rounded-md pointer-events-none" />
+              <div className="absolute inset-0 z-20 border border-[var(--accent)]/10 rounded-xl pointer-events-none" />
 
               <Image
                 src="https://images.unsplash.com/photo-1493863641943-9b68992a8d07?q=80&w=800&auto=format&fit=crop"
@@ -126,6 +130,9 @@ export default function AboutHero() {
           </div>
         </div>
       </div>
+
+      {/* Golden Gradient Divider at the bottom of the Hero */}
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#c5a075]/40 to-transparent z-20" />
     </section>
   );
 }

@@ -9,12 +9,12 @@ export default function FeaturedBillboard({ post, onRead }) {
 
   return (
     <div 
-      className="relative w-full overflow-hidden rounded-md border border-white/[0.04] bg-[#0c0c0e] hover:border-[var(--accent)]/30 transition-all duration-500 ease-out cursor-pointer group"
+      className="relative w-full overflow-hidden rounded-xl border border-white/[0.04] bg-[#0c0c0e] hover:border-[var(--accent)]/30 transition-all duration-500 ease-out cursor-pointer group"
       onClick={onRead}
       style={{ boxShadow: '0 4px 30px rgba(0, 0, 0, 0.4)' }}
     >
       {/* Inner border outline */}
-      <div className="absolute inset-0 z-20 border border-[var(--accent)]/0 group-hover:border-[var(--accent)]/15 rounded-md pointer-events-none transition-all duration-500" />
+      <div className="absolute inset-0 z-20 border border-[var(--accent)]/0 group-hover:border-[var(--accent)]/15 rounded-xl pointer-events-none transition-all duration-500" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 w-full">
         {/* LEFT: Cover Image */}

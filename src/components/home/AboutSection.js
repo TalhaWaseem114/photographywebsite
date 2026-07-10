@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { db } from '@/lib/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 
@@ -32,14 +33,17 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section id="about-section" className="relative min-h-[600px] w-full grid grid-cols-1 md:grid-cols-2 bg-background border-t border-divider">
+    <section id="about-section" className="relative min-h-[600px] w-full grid grid-cols-1 md:grid-cols-2 bg-background">
+      
+      {/* ─── Golden Gradient Divider Line ─── */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#c5a075] to-transparent opacity-60 z-30"></div>
 
       {/* ─── LEFT SIDE — Photographic Background ─── */}
       <div className="relative h-[450px] md:h-full w-full overflow-hidden">
         <img
-          src={aboutData.image || "https://images.unsplash.com/photo-1493863641943-9b68992a8d07?q=80&w=1200&auto=format&fit=crop"}
+          src="/images/ctaImg.png"
           alt="Photographer Silhouette"
-          className="absolute inset-0 w-full h-full object-cover object-[40%_center] grayscale contrast-[1.15] brightness-[0.45]"
+          className="absolute inset-0 w-full h-full object-cover object-[40%_center] grayscale contrast-[1.1] brightness-[0.7]"
         />
 
         {/* Gradient Overlays for smooth blending */}
@@ -78,28 +82,25 @@ export default function AboutSection() {
 
         {/* Section Heading */}
         <h2 className="font-display text-[clamp(2.5rem,4vw,4rem)] leading-[1.05] tracking-[0.05em] uppercase mb-8 text-foreground font-light">
-          {aboutData.heading}
+          {aboutData.heading || "Hanzala Photographer"}
         </h2>
 
         {/* Body Text */}
-        <p className="text-[13px] leading-[2.1] text-muted max-w-[420px] mb-6 font-light tracking-wide">
-          {aboutData.bio1}
+        <p className="text-[14px] leading-[2.1] text-muted max-w-[420px] mb-6 font-light tracking-wide">
+          I am a visual artist and photographer. For me, <strong className="font-semibold text-foreground">every frame is a search for something real</strong>. I focus on the delicate balance of light, shadow, and genuine human connection.
         </p>
 
-        {aboutData.bio2 && (
-          <p className="text-[13px] leading-[2.1] text-muted max-w-[420px] mb-10 font-light tracking-wide">
-            {aboutData.bio2}
-          </p>
-        )}
+        <p className="text-[14px] leading-[2.1] text-muted max-w-[420px] mb-10 font-light tracking-wide">
+          With a deep love for editorial and documentary styles, I blend minimal aesthetics with intention to <strong className="font-semibold text-foreground">craft visual stories that last</strong>.
+        </p>
 
         {/* About Me Link */}
-        <div className="flex flex-col gap-2 cursor-pointer group w-fit">
-          <span className="font-condensed text-[10px] tracking-[0.3em] uppercase text-foreground/80 group-hover:text-foreground transition-colors">
-            {aboutData.subheading}
+        <Link href="/about" className="group flex items-center gap-5 border border-divider hover:border-accent px-8 py-4 transition-all duration-300 w-fit mt-2 bg-foreground/[0.02] hover:bg-accent/[0.05]">
+          <span className="font-condensed text-[11px] tracking-[0.3em] uppercase text-foreground/80 group-hover:text-accent transition-colors">
+            {aboutData.subheading || "Read Full Bio"}
           </span>
-          {/* Accent Gold Underline */}
-          <span className="block w-8 h-[1px] bg-accent opacity-80 group-hover:w-12 transition-all duration-300"></span>
-        </div>
+          <span className="w-8 h-[1px] bg-foreground/30 group-hover:bg-accent group-hover:w-12 transition-all duration-300"></span>
+        </Link>
       </div>
 
     </section>

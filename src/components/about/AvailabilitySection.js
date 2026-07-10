@@ -59,11 +59,11 @@ export default function AvailabilitySection() {
         {/* Right Side: Location Info Card */}
         <div className="flex justify-start md:justify-end">
           <div 
-            className="relative w-full max-w-[440px] bg-[#0c0c0e] border border-white/5 rounded-md p-8 md:p-12 text-left"
+            className="relative w-full max-w-[440px] bg-[#0c0c0e] border border-white/5 rounded-xl p-8 md:p-12 text-left"
             style={{ boxShadow: '0 20px 45px rgba(0,0,0,0.55)' }}
           >
             {/* Ambient gold inner frame */}
-            <div className="absolute inset-0 z-20 border border-[var(--accent)]/5 rounded-md pointer-events-none" />
+            <div className="absolute inset-0 z-20 border border-[var(--accent)]/5 rounded-xl pointer-events-none" />
 
             {/* Top console indicators */}
             <div className="flex justify-between items-center mb-10 font-mono text-[7px] text-white/20 tracking-[0.25em] uppercase select-none">

@@ -80,7 +80,7 @@ export default function ContactForm() {
           </h2>
 
           {submitted ? (
-            <div className="w-full bg-[#0c0c0e] border border-[var(--accent)]/30 rounded-md p-8 text-center flex flex-col items-center justify-center min-h-[350px]">
+            <div className="w-full bg-[#0c0c0e] border border-[var(--accent)]/30 rounded-xl p-8 text-center flex flex-col items-center justify-center min-h-[350px]">
               <div className="w-12 h-12 rounded-full bg-[var(--accent)]/10 border border-[var(--accent)] flex items-center justify-center text-[var(--accent)] mb-5 animate-bounce">
                 <Send size={18} />
               </div>
@@ -207,7 +207,7 @@ export default function ContactForm() {
               href="https://wa.me/03493771741" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 bg-[#0c0c0e] border border-white/5 rounded-md p-6 hover:border-[var(--accent)]/30 hover:bg-white/[0.01] transition-all duration-500"
+              className="group flex items-center gap-4 bg-[#0c0c0e] border border-white/5 rounded-xl p-6 hover:border-[var(--accent)]/30 hover:bg-white/[0.01] transition-all duration-500"
             >
               <div className="w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform shrink-0">
                 <MessageSquare size={16} />
@@ -223,7 +223,7 @@ export default function ContactForm() {
             {/* Email Address */}
             <a 
               href="mailto:hello@hanzalaphotography.com"
-              className="group flex items-center gap-4 bg-[#0c0c0e] border border-white/5 rounded-md p-6 hover:border-[var(--accent)]/30 hover:bg-white/[0.01] transition-all duration-500"
+              className="group flex items-center gap-4 bg-[#0c0c0e] border border-white/5 rounded-xl p-6 hover:border-[var(--accent)]/30 hover:bg-white/[0.01] transition-all duration-500"
             >
               <div className="w-10 h-10 rounded-full bg-[var(--accent)]/10 border border-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] group-hover:scale-105 transition-transform shrink-0">
                 <Mail size={16} />
@@ -237,7 +237,7 @@ export default function ContactForm() {
             </a>
 
             {/* Location Stamp Card */}
-            <div className="relative bg-[#0c0c0e] border border-white/5 rounded-md p-8 text-left mt-2">
+            <div className="relative bg-[#0c0c0e] border border-white/5 rounded-xl p-8 text-left mt-2">
               <span className="absolute top-4 left-4 w-2 h-2 border-t border-l border-white/10" />
               <span className="absolute top-4 right-4 w-2 h-2 border-t border-r border-white/10" />
               <span className="absolute bottom-4 left-4 w-2 h-2 border-b border-l border-white/10" />

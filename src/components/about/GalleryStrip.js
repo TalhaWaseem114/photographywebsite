@@ -56,7 +56,7 @@ export default function GalleryStrip() {
           {images.map((img) => (
             <div
               key={img.id}
-              className="group relative flex-shrink-0 w-[240px] sm:w-[280px] aspect-[3/4] overflow-hidden rounded-md border border-white/5 bg-zinc-950 cursor-pointer"
+              className="group relative flex-shrink-0 w-[240px] sm:w-[280px] aspect-[3/4] overflow-hidden rounded-xl border border-white/5 bg-zinc-950 cursor-pointer"
             >
               {/* Image element */}
               <Image

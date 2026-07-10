@@ -5,22 +5,25 @@ import React from 'react';
 export default function ServicesHero() {
   return (
     <section 
-      className="relative min-h-[50vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden bg-[var(--bg)] border-b border-white/5"
+      className="relative min-h-[50vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden bg-[var(--bg)]"
       style={{ contain: "layout style paint" }}
     >
       {/* Background Atmosphere */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
-        <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[var(--accent)]/5 blur-[120px]" />
-        
-        {/* Parallax Background */}
+        {/* Flower Image Overlay - fallback to heroFlower.png */}
         <div 
-          className="absolute inset-0 opacity-[0.2] mix-blend-screen bg-cover bg-center bg-no-repeat transition-all duration-700"
+          className="absolute inset-0 opacity-[0.55] mix-blend-screen bg-cover bg-center bg-no-repeat transition-all duration-700"
           style={{ 
-            backgroundImage: 'url("/images/servicesBg.png"), url("/images/aboutTexture.png")',
+            backgroundImage: 'url("/images/portfolioBg.png"), url("/images/heroFlower.png")',
             backgroundBlendMode: 'normal'
           }}
         />
+
+        {/* Ethereal Golden Light Orb */}
+        <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[var(--accent)]/5 blur-[120px]" />
+        
+        {/* Left-side dark overlay for text legibility */}
+        <div className="absolute inset-y-0 left-0 w-full md:w-[65%] bg-gradient-to-r from-black/85 via-black/30 to-transparent" />
       </div>
 
       {/* Brackets */}
@@ -54,8 +57,8 @@ export default function ServicesHero() {
             SERVICES
           </h1>
 
-          <p className="text-white/40 text-[13px] sm:text-[14px] leading-[2] mb-8 max-w-[480px] font-light tracking-wide">
-            Detailed commission listings, inclusions, production timelines, and an interactive pricing calculator to estimate your bespoke project config.
+          <p className="text-white/60 text-[13px] sm:text-[14px] leading-[2] mb-8 max-w-[480px] font-light tracking-wide">
+            Detailed commission listings, inclusions, production timelines, and an <strong className="font-semibold text-white">interactive pricing calculator</strong> to estimate your <strong className="font-semibold text-white">bespoke project config</strong>.
           </p>
 
           {/* Stats Bar */}
@@ -78,6 +81,9 @@ export default function ServicesHero() {
           </div>
         </div>
       </div>
+
+      {/* Golden Gradient Divider at the bottom of the Hero */}
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#c5a075]/40 to-transparent z-20" />
     </section>
   );
 }

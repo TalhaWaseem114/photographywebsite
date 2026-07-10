@@ -17,11 +17,20 @@ export default function ServicesClient() {
       {/* 1b. Service Genres & Disciplines */}
       <ServiceGenres />
 
+      {/* Gray Gradient Divider */}
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
       {/* 2. Packages Grid */}
       <PackagesSection />
 
+      {/* Gray Gradient Divider */}
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
       {/* 3. Pricing Calculator */}
       <PricingCalculator />
+
+      {/* Gray Gradient Divider */}
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       {/* 4. Experience Process */}
       <ProcessSection />

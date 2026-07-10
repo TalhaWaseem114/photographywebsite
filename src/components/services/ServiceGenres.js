@@ -40,7 +40,7 @@ const GENRES = [
 
 export default function ServiceGenres() {
   return (
-    <section className="bg-black py-16 border-b border-white/5">
+    <section className="bg-black py-16">
       <div className="max-w-[1700px] mx-auto px-8 pl-8 md:pl-28 lg:pl-32 lg:pr-16 xl:pr-24 w-full">
         {/* Section Header */}
         <div className="flex flex-col items-start text-left mb-12">
@@ -62,10 +62,10 @@ export default function ServiceGenres() {
             return (
               <div 
                 key={idx} 
-                className="bg-[#08080a] border border-white/5 p-8 rounded-lg hover:border-[var(--accent)]/45 hover:-translate-y-1 transition-all duration-500 flex flex-col justify-between group relative overflow-hidden"
+                className="bg-[#08080a] border border-white/5 p-8 rounded-xl hover:border-[var(--accent)]/45 hover:-translate-y-1 transition-all duration-500 flex flex-col justify-between group relative overflow-hidden"
               >
                 {/* Smooth blending service illustration image in top right corner */}
-                <div className="absolute top-0 right-0 w-44 h-44 pointer-events-none select-none z-0 rounded-tr-lg overflow-hidden">
+                <div className="absolute top-0 right-0 w-44 h-44 pointer-events-none select-none z-0 rounded-tr-xl overflow-hidden">
                   <img 
                     src={genre.image} 
                     alt="" 

@@ -78,10 +78,10 @@ export default function JournalGrid({
               <div
                 key={post.id}
                 onClick={() => onSelectPost(post)}
-                className="grid-item flex flex-col gap-6 cursor-pointer group bg-[#0a0a0c] border border-white/[0.04] p-6 sm:p-8 rounded-md hover:border-[var(--accent)]/30 transition-all duration-500"
+                className="grid-item flex flex-col gap-6 cursor-pointer group bg-[#0a0a0c] border border-white/[0.04] p-6 sm:p-8 rounded-xl hover:border-[var(--accent)]/30 transition-all duration-500"
               >
                 {/* Image Frame */}
-                <div className="relative w-full aspect-[16/10] overflow-hidden rounded">
+                <div className="relative w-full aspect-[16/10] overflow-hidden rounded-lg">
                   <Image
                     src={post.coverImage}
                     alt={post.title}
@@ -122,11 +122,11 @@ export default function JournalGrid({
               <div
                 key={post.id}
                 onClick={() => onSelectPost(post)}
-                className="grid-item flex flex-col bg-[#111113] border border-white/[0.04] p-5 pb-7 rounded-md cursor-pointer hover:border-[var(--accent)]/20 hover:bg-[#141417] transition-all duration-500 relative group"
+                className="grid-item flex flex-col bg-[#111113] border border-white/[0.04] p-5 pb-7 rounded-xl cursor-pointer hover:border-[var(--accent)]/20 hover:bg-[#141417] transition-all duration-500 relative group"
                 style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
               >
                 {/* Polaroid Square Frame */}
-                <div className="relative w-full aspect-square overflow-hidden bg-zinc-950 rounded-sm mb-5">
+                <div className="relative w-full aspect-square overflow-hidden bg-zinc-950 rounded-lg mb-5">
                   <Image
                     src={post.coverImage}
                     alt={post.title}

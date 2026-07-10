@@ -4,12 +4,24 @@ import React from 'react';
 
 export default function PortfolioHero({ totalCount = 24, categoriesCount = 8 }) {
   return (
-    <section 
-      className="relative min-h-[50vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden bg-[var(--bg)] border-b border-white/5"
+    <section
+      className="relative min-h-[50vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden bg-[var(--bg)]"
       style={{ contain: "layout style paint" }}
     >
       {/* Ambient Background & Grid Overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Flower Image Overlay - Fallback to heroFlower.png, with support for portfolioBg.png */}
+        <div 
+          className="absolute inset-0 opacity-[0.55] mix-blend-screen bg-cover bg-center bg-no-repeat transition-all duration-700"
+          style={{ 
+            backgroundImage: 'url("/images/portfolioBg.png"), url("/images/heroFlower.png")',
+            backgroundBlendMode: 'normal'
+          }}
+        />
+
+        {/* Ethereal Golden Light Orb */}
+        <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[var(--accent)]/5 blur-[120px]" />
+
         {/* Subtle grid pattern matching home page style */}
         <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
           <pattern id="port-grid" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -18,20 +30,8 @@ export default function PortfolioHero({ totalCount = 24, categoriesCount = 8 }) 
           <rect width="100%" height="100%" fill="url(#port-grid)" />
         </svg>
 
-        {/* Ambient Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
-
-        {/* Ethereal Golden Light Orb */}
-        <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[var(--accent)]/5 blur-[120px]" />
-        
-        {/* Flower Image Overlay - Fallback to heroFlower.png, with support for portfolioBg.png */}
-        <div 
-          className="absolute inset-0 opacity-[0.18] mix-blend-screen bg-cover bg-center bg-no-repeat transition-all duration-700"
-          style={{ 
-            backgroundImage: 'url("/images/portfolioBg.png"), url("/images/heroFlower.png")',
-            backgroundBlendMode: 'normal'
-          }}
-        />
+        {/* Text-side specific dark overlay (Left 50% only) - placed on top of image to mask it */}
+        <div className="absolute inset-y-0 left-0 w-full md:w-[55%] bg-gradient-to-r from-black/85 via-black/30 to-transparent" />
       </div>
 
       {/* Decorative Corner Brackets (matching Hanzala branding) */}
@@ -76,9 +76,9 @@ export default function PortfolioHero({ totalCount = 24, categoriesCount = 8 }) 
           </h1>
 
           {/* Description */}
-          <p className="text-white/40 text-[13px] sm:text-[14px] leading-[2] mb-8 max-w-[480px] font-light tracking-wide">
-            A curated visual chronicle of landscapes, portraiture, and architectural lines. 
-            Each frame is an exploration of form, tone, and the quiet spaces between moments.
+          <p className="text-white/60 text-[13px] sm:text-[14px] leading-[2] mb-8 max-w-[480px] font-light tracking-wide">
+            A curated visual chronicle of <strong className="font-semibold text-white">landscapes, portraiture, and architectural lines</strong>. 
+            Each frame is an exploration of <strong className="font-semibold text-white">form, tone</strong>, and the <strong className="font-semibold text-white">quiet spaces</strong> between moments.
           </p>
 
           {/* Stats Bar */}
@@ -101,6 +101,9 @@ export default function PortfolioHero({ totalCount = 24, categoriesCount = 8 }) 
           </div>
         </div>
       </div>
+
+      {/* Golden Gradient Divider at the bottom of the Hero */}
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#c5a075]/40 to-transparent z-20" />
     </section>
   );
 }

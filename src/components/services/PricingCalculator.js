@@ -126,7 +126,7 @@ Please let me know your availability for further discussion.`;
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-start">
           
           {/* LEFT PANEL: Inputs Console (col-span-7) */}
-          <div className="lg:col-span-7 flex flex-col gap-8 bg-[#0c0c0e] border border-white/5 rounded-md p-6 sm:p-10 relative">
+          <div className="lg:col-span-7 flex flex-col gap-8 bg-[#0c0c0e] border border-white/5 rounded-xl p-6 sm:p-10 relative">
             <span className="absolute top-6 left-6 w-3 h-3 border-t border-l border-white/10" />
             <span className="absolute top-6 right-6 w-3 h-3 border-t border-r border-white/10" />
 
@@ -225,11 +225,11 @@ Please let me know your availability for further discussion.`;
 
           {/* RIGHT PANEL: Output Estimator (col-span-5) */}
           <div 
-            className="lg:col-span-5 flex flex-col justify-center items-start text-left bg-[#0c0c0e] border border-white/5 rounded-md p-8 md:p-12 relative w-full lg:min-h-[460px]"
+            className="lg:col-span-5 flex flex-col justify-center items-start text-left bg-[#0c0c0e] border border-white/5 rounded-xl p-8 md:p-12 relative w-full lg:min-h-[460px]"
             style={{ boxShadow: '0 20px 45px rgba(0,0,0,0.55)' }}
           >
             {/* Ambient gold inner frame */}
-            <div className="absolute inset-0 z-20 border border-[var(--accent)]/5 rounded pointer-events-none" />
+            <div className="absolute inset-0 z-20 border border-[var(--accent)]/5 rounded-xl pointer-events-none" />
 
             <div className="flex flex-col gap-1.5 w-full mb-10">
               <span className="text-[7.5px] font-mono text-white/30 uppercase tracking-widest leading-none mb-1">TARIFF_CALCULATION</span>

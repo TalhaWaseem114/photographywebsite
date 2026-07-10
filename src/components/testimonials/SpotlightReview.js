@@ -7,11 +7,11 @@ export default function SpotlightReview({ review }) {
 
   return (
     <div 
-      className="relative w-full overflow-hidden rounded-md border border-white/[0.04] bg-[#0c0c0e] p-8 sm:p-12 md:p-16 flex flex-col items-start hover:border-[var(--accent)]/30 transition-all duration-500 ease-out text-left"
+      className="relative w-full overflow-hidden rounded-xl border border-white/[0.04] bg-[#0c0c0e] p-8 sm:p-12 md:p-16 flex flex-col items-start hover:border-[var(--accent)]/30 transition-all duration-500 ease-out text-left"
       style={{ boxShadow: '0 4px 30px rgba(0, 0, 0, 0.4)' }}
     >
       {/* Accent glow inner frame */}
-      <div className="absolute inset-0 z-20 border border-[var(--accent)]/5 rounded-md pointer-events-none transition-all duration-500" />
+      <div className="absolute inset-0 z-20 border border-[var(--accent)]/5 rounded-xl pointer-events-none transition-all duration-500" />
       
       {/* Giant Quote Watermark */}
       <span 

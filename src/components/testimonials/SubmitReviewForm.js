@@ -86,7 +86,7 @@ export default function SubmitReviewForm({ onAddReview }) {
         {/* Right column form block */}
         <div className="lg:col-span-8 flex flex-col items-start w-full">
           {submitted ? (
-            <div className="w-full bg-[#0c0c0e] border border-[var(--accent)]/30 rounded-md p-8 text-center flex flex-col items-center justify-center min-h-[350px]">
+            <div className="w-full bg-[#0c0c0e] border border-[var(--accent)]/30 rounded-xl p-8 text-center flex flex-col items-center justify-center min-h-[350px]">
               <div className="w-12 h-12 rounded-full bg-[var(--accent)]/10 border border-[var(--accent)] flex items-center justify-center text-[var(--accent)] mb-5 animate-bounce">
                 <Send size={18} />
               </div>

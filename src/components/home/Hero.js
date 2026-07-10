@@ -11,7 +11,7 @@ export default function Hero() {
     subtitle: "I don't take photos.",
     title1: "I CAPTURE",
     title2: "STORIES",
-    paragraph: "Photography for me is not looking, it's feeling. If you can't feel what you're looking at, then you're never going to get others to feel anything when they look at your pictures.",
+    paragraph: "Photography for me is **not looking, it's feeling**. If you can't **feel** what you're looking at, then you're never going to get others to **feel anything** when they look at your pictures.",
     image: "/images/hero.png",
     signature: "Hanzala",
     signatureSubtitle: "Hanzala Portfolio",
@@ -24,12 +24,27 @@ export default function Hero() {
       if (snapshot.exists()) {
         const data = snapshot.data();
         if (data.hero) {
-          setHeroData(data.hero);
+          setHeroData(prev => ({
+            ...prev,
+            image: data.hero.image || prev.image
+          }));
         }
       }
     });
     return () => unsubscribe();
   }, []);
+
+  // Helper to parse **bold** text format dynamically
+  const renderFormattedText = (text) => {
+    if (!text) return null;
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, i) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <strong key={i} className="font-semibold text-foreground">{part.slice(2, -2)}</strong>;
+      }
+      return part;
+    });
+  };
 
   // Auto-rotate slides every 4 seconds
   useEffect(() => {
@@ -94,8 +109,8 @@ export default function Hero() {
           </h1>
 
           {/* Paragraph */}
-          <p className="text-muted text-[14px] leading-[2.1] mb-12 max-w-[260px] font-light tracking-wide">
-            {heroData.paragraph}
+          <p className="text-foreground/80 text-[14px] leading-[2.1] mb-12 max-w-[380px] font-light tracking-wide">
+            {renderFormattedText(heroData.paragraph)}
           </p>
 
           {/* Corner Bracket Portfolio Button */}
@@ -128,7 +143,7 @@ export default function Hero() {
       </div>
 
       {/* ─── Elegant Signature Layer (Positioned to the left of the vertical controls) ─── */}
-      <div className="absolute bottom-36 right-28 z-20 text-right hidden lg:block">
+      <div className="absolute bottom-36 right-4 z-20 text-right hidden lg:block">
         <p className="font-script text-[48px] text-[#c5a075] mb-1 leading-none tracking-normal">
           {heroData.signature}
         </p>
@@ -176,7 +191,7 @@ export default function Hero() {
         </div>
 
         {/* Thin vertical separator line (positioned below the play button extending down) */}
-        <div className="w-[1px] h-24 bg-white/20 mt-4"></div>
+        <div className="w-[1px] h-40 bg-white/20 mt-4"></div>
 
       </div>
     </section>

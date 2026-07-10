@@ -220,7 +220,7 @@ export const PORTFOLIO_ITEMS = [
     id: "nat-03",
     title: "Valley of Light",
     category: "Nature",
-    src: "https://images.unsplash.com/photo-1472214222541-d510753a8707?q=80&w=800&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=800&auto=format&fit=crop",
     aspectRatio: "portrait",
     location: "Yosemite, USA",
     date: "2024",

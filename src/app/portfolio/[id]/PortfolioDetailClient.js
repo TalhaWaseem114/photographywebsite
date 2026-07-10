@@ -433,7 +433,7 @@ export default function PortfolioDetailClient({ id }) {
               <div 
                 key={related.id}
                 onClick={() => router.push(`/portfolio/${related.id}`)}
-                className="group cursor-pointer flex flex-col bg-[#0c0c0e] border border-white/5 hover:border-[#c5a075]/40 rounded-md overflow-hidden transition-all duration-300"
+                className="group cursor-pointer flex flex-col bg-[#0c0c0e] border border-white/5 hover:border-[#c5a075]/40 rounded-3xl overflow-hidden transition-all duration-300"
               >
                 <div className="relative aspect-[3/2] overflow-hidden bg-black/40">
                   <img 

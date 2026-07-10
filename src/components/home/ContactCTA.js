@@ -49,7 +49,10 @@ export default function ContactCTA() {
   };
 
   return (
-    <section id="contact-section" className="relative py-20 md:py-24 bg-background overflow-hidden border-t border-divider flex items-center min-h-[400px]">
+    <section id="contact-section" className="relative py-20 md:py-24 bg-background overflow-hidden flex items-center min-h-[400px]">
+
+      {/* ─── Gray Gradient Divider Line ─── */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-foreground/15 to-transparent opacity-50 z-30"></div>
 
       {/* ─── Cinematic Background Layer ─── */}
       <img
